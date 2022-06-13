@@ -30,20 +30,25 @@ class Login extends ResourceController
         $verify = password_verify($this->request->getVar('password'), $user['password']);
         if (!$verify) return $this->responseApi([], false, 'Email or password in incorrect');
 
-        $key = 'cskhfuwt48wbfjn3i4utnjf38754hf3yfbjc93758thrjsnf83hcwn8437';
+        $key = getenv('TOKEN_SECRET');
+        // cskhfuwt48wbfjn3i4utnjf38754hf3yfbjc93758thrjsnf83hcwn8437
         $payload = array(
             "iat" => 1356999524,
             "nbf" => 1357000000,
             "uid" => $user['id'],
             "email" => $user['email']
         );
-        $token = JWT::encode($payload, $key);
-        return $this->responseApi($token, true, 'User logged in successfully');
+        $token = JWT::encode($payload, $key, 'HS256');
+        $data = [
+            'user' => $user['name'],
+            'token' => $token
+        ];
+        return $this->responseApi($data, true, 'User logged in successfully');
     }
 
     protected function responseApi($data, $status, $message)
     {
-        return $this->response([
+        return $this->respond([
             'data' => $data,
             'status' => $status,
             'message' => $message

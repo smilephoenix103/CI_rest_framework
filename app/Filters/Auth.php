@@ -27,7 +27,7 @@ class Auth implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
-        $key = 'cskhfuwt48wbfjn3i4utnjf38754hf3yfbjc93758thrjsnf83hcwn8437';
+        $key = getenv('TOKEN_SECRET');
         $header = $request->getServer('HTTP_AUTHORIZATION');
         if (!$header) return Services::response()
             ->setJSON(['msg' => 'Token Required'])
