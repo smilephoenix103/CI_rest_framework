@@ -39,6 +39,9 @@ $routes->get('/', 'Home::index');
 $routes->get('/posts', 'Posts::index');
 $routes->post('/posts', 'Posts::create');
 $routes->delete('/posts', 'Posts::delete');
+
+$routes->post('register', 'Register::index');
+$routes->post('login', 'Login::index');
 // $routes->resource('posts');
 
 /*

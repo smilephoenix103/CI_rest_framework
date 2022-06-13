@@ -31,12 +31,12 @@ class Register extends ResourceController
         ];
         $model = new UserModel();
         $registered = $model->save($data);
-        $this->responseApi($registered, true, 'User created successfully');
+        return $this->responseApi([], true, 'User created successfully');
     }
 
     protected function responseApi($data, $status, $message)
     {
-        return $this->response([
+        return $this->respond([
             'data' => $data,
             'status' => $status,
             'message' => $message
